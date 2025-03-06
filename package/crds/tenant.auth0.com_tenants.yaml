@@ -1,0 +1,1135 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: tenants.tenant.auth0.com
+spec:
+  group: tenant.auth0.com
+  names:
+    categories:
+    - crossplane
+    - managed
+    - auth0
+    kind: Tenant
+    listKind: TenantList
+    plural: tenants
+    singular: tenant
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Tenant is the Schema for the Tenants API. With this resource,
+          you can manage Auth0 tenants, including setting logos and support contact
+          information, setting error pages, and configuring default tenant behaviors.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TenantSpec defines the desired state of Tenant
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  acrValuesSupported:
+                    description: |-
+                      (Set of String) List of supported ACR values.
+                      List of supported ACR values.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  allowOrganizationNameInAuthenticationApi:
+                    description: |-
+                      (Boolean) Whether to accept an organization name instead of an ID on auth endpoints.
+                      Whether to accept an organization name instead of an ID on auth endpoints.
+                    type: boolean
+                  allowedLogoutUrls:
+                    description: |-
+                      (List of String) URLs that Auth0 may redirect to after logout.
+                      URLs that Auth0 may redirect to after logout.
+                    items:
+                      type: string
+                    type: array
+                  customizeMfaInPostloginAction:
+                    description: |-
+                      (Boolean) Whether to enable flexible factors for MFA in the PostLogin action.
+                      Whether to enable flexible factors for MFA in the PostLogin action.
+                    type: boolean
+                  defaultAudience:
+                    description: |-
+                      (String) API Audience to use by default for API Authorization flows. This setting is equivalent to appending the audience to every authorization request made to the tenant for every application.
+                      API Audience to use by default for API Authorization flows. This setting is equivalent to appending the audience to every authorization request made to the tenant for every application.
+                    type: string
+                  defaultDirectory:
+                    description: |-
+                      adldap, ad, auth0, email, sms, waad, and adfs.
+                      Name of the connection to be used for Password Grant exchanges. Options include `auth0-adldap`, `ad`, `auth0`, `email`, `sms`, `waad`, and `adfs`.
+                    type: string
+                  defaultRedirectionUri:
+                    description: |-
+                      (String) The default absolute redirection URI. Must be HTTPS or an empty string.
+                      The default absolute redirection URI. Must be HTTPS or an empty string.
+                    type: string
+                  disableAcrValuesSupported:
+                    description: |-
+                      (Boolean) Disable list of supported ACR values.
+                      Disable list of supported ACR values.
+                    type: boolean
+                  enabledLocales:
+                    description: |-
+                      (List of String) Supported locales for the user interface. The first locale in the list will be used to set the default locale.
+                      Supported locales for the user interface. The first locale in the list will be used to set the default locale.
+                    items:
+                      type: string
+                    type: array
+                  flags:
+                    description: |-
+                      (Block List, Max: 1) Configuration settings for tenant flags. (see below for nested schema)
+                      Configuration settings for tenant flags.
+                    items:
+                      properties:
+                        allowLegacyDelegationGrantTypes:
+                          description: |-
+                            (Boolean) Whether the legacy delegation endpoint will be enabled for your account (true) or not available (false).
+                            Whether the legacy delegation endpoint will be enabled for your account (true) or not available (false).
+                          type: boolean
+                        allowLegacyRoGrantTypes:
+                          description: |-
+                            (Boolean) Whether the legacy auth/ro endpoint (used with resource owner password and passwordless features) will be enabled for your account (true) or not available (false).
+                            Whether the legacy `auth/ro` endpoint (used with resource owner password and passwordless features) will be enabled for your account (true) or not available (false).
+                          type: boolean
+                        allowLegacyTokeninfoEndpoint:
+                          description: |-
+                            (Boolean) If enabled, customers can use Tokeninfo Endpoint, otherwise they can not use it.
+                            If enabled, customers can use Tokeninfo Endpoint, otherwise they can not use it.
+                          type: boolean
+                        dashboardInsightsView:
+                          description: |-
+                            (Boolean) Enables new insights activity page view.
+                            Enables new insights activity page view.
+                          type: boolean
+                        dashboardLogStreamsNext:
+                          description: |-
+                            (Boolean) Enables beta access to log streaming changes.
+                            Enables beta access to log streaming changes.
+                          type: boolean
+                        disableClickjackProtectionHeaders:
+                          description: |-
+                            (Boolean) Indicates whether classic Universal Login prompts include additional security headers to prevent clickjacking.
+                            Indicates whether classic Universal Login prompts include additional security headers to prevent clickjacking.
+                          type: boolean
+                        disableFieldsMapFix:
+                          description: |-
+                            (Boolean) Disables SAML fields map fix for bad mappings with repeated attributes.
+                            Disables SAML fields map fix for bad mappings with repeated attributes.
+                          type: boolean
+                        disableManagementApiSmsObfuscation:
+                          description: |-
+                            (Boolean) If true, SMS phone numbers will not be obfuscated in Management API GET calls.
+                            If true, SMS phone numbers will not be obfuscated in Management API GET calls.
+                          type: boolean
+                        enableAdfsWaadEmailVerification:
+                          description: |-
+                            (Boolean) If enabled, users will be presented with an email verification prompt during their first login when using Azure AD or ADFS connections.
+                            If enabled, users will be presented with an email verification prompt during their first login when using Azure AD or ADFS connections.
+                          type: boolean
+                        enableApisSection:
+                          description: |-
+                            (Boolean) Indicates whether the APIs section is enabled for the tenant.
+                            Indicates whether the APIs section is enabled for the tenant.
+                          type: boolean
+                        enableClientConnections:
+                          description: |-
+                            (Boolean) Indicates whether all current connections should be enabled when a new client is created.
+                            Indicates whether all current connections should be enabled when a new client is created.
+                          type: boolean
+                        enableCustomDomainInEmails:
+                          description: |-
+                            (Boolean) Indicates whether the tenant allows custom domains in emails. Before enabling this flag, you must have a custom domain with status: ready.
+                            Indicates whether the tenant allows custom domains in emails. Before enabling this flag, you must have a custom domain with status: `ready`.
+                          type: boolean
+                        enableDynamicClientRegistration:
+                          description: |-
+                            (Boolean) Indicates whether the tenant allows dynamic client registration.
+                            Indicates whether the tenant allows dynamic client registration.
+                          type: boolean
+                        enableIdtokenApi2:
+                          description: |-
+                            (Boolean) Whether ID tokens can be used to authorize some types of requests to API v2 (true) or not (false).
+                            Whether ID tokens can be used to authorize some types of requests to API v2 (true) or not (false).
+                          type: boolean
+                        enableLegacyLogsSearchV2:
+                          description: |-
+                            (Boolean) Indicates whether to use the older v2 legacy logs search.
+                            Indicates whether to use the older v2 legacy logs search.
+                          type: boolean
+                        enableLegacyProfile:
+                          description: |-
+                            (Boolean) Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
+                            Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
+                          type: boolean
+                        enablePipeline2:
+                          description: |-
+                            (Boolean) Indicates whether advanced API Authorization scenarios are enabled.
+                            Indicates whether advanced API Authorization scenarios are enabled.
+                          type: boolean
+                        enablePublicSignupUserExistsError:
+                          description: |-
+                            (Boolean) Indicates whether the public sign up process shows a user_exists error if the user already exists.
+                            Indicates whether the public sign up process shows a `user_exists` error if the user already exists.
+                          type: boolean
+                        enableSso:
+                          description: |-
+                            (Boolean) Flag indicating whether users will not be prompted to confirm log in before SSO redirection. This flag applies to existing tenants only; new tenants have it enforced as true.
+                            Flag indicating whether users will not be prompted to confirm log in before SSO redirection. This flag applies to existing tenants only; new tenants have it enforced as true.
+                          type: boolean
+                        mfaShowFactorListOnEnrollment:
+                          description: |-
+                            (Boolean) Used to allow users to pick which factor to enroll with from the list of available MFA factors.
+                            Used to allow users to pick which factor to enroll with from the list of available MFA factors.
+                          type: boolean
+                        noDiscloseEnterpriseConnections:
+                          description: |-
+                            (Boolean) Do not Publish Enterprise Connections Information with IdP domains on the lock configuration file.
+                            Do not Publish Enterprise Connections Information with IdP domains on the lock configuration file.
+                          type: boolean
+                        removeAlgFromJwks:
+                          description: |-
+                            (Boolean) Remove alg from jwks(JSON Web Key Sets).
+                            Remove `alg` from jwks(JSON Web Key Sets).
+                          type: boolean
+                        requirePushedAuthorizationRequests:
+                          description: |-
+                            (Boolean, Deprecated) This Flag is not supported by the Auth0 Management API and will be removed in the next major release.
+                            This Flag is not supported by the Auth0 Management API and will be removed in the next major release.
+                          type: boolean
+                        revokeRefreshTokenGrant:
+                          description: |-
+                            (Boolean) Delete underlying grant when a refresh token is revoked via the Authentication API.
+                            Delete underlying grant when a refresh token is revoked via the Authentication API.
+                          type: boolean
+                        useScopeDescriptionsForConsent:
+                          description: |-
+                            (Boolean) Indicates whether to use scope descriptions for consent.
+                            Indicates whether to use scope descriptions for consent.
+                          type: boolean
+                      type: object
+                    type: array
+                  friendlyName:
+                    description: |-
+                      (String) Friendly name for the tenant.
+                      Friendly name for the tenant.
+                    type: string
+                  idleSessionLifetime:
+                    description: |-
+                      (Number) Number of hours during which a session can be inactive before the user must log in again.
+                      Number of hours during which a session can be inactive before the user must log in again.
+                    type: number
+                  mtls:
+                    description: |-
+                      (Block List, Max: 1) Configuration for mTLS. (see below for nested schema)
+                      Configuration for mTLS.
+                    items:
+                      properties:
+                        disable:
+                          description: |-
+                            (Boolean) Disable mTLS settings.
+                            Disable mTLS settings.
+                          type: boolean
+                        enableEndpointAliases:
+                          description: |-
+                            (Boolean) Enable mTLS endpoint aliases.
+                            Enable mTLS endpoint aliases.
+                          type: boolean
+                      type: object
+                    type: array
+                  pictureUrl:
+                    description: |-
+                      (String) URL of logo to be shown for the tenant. Recommended size is 150px x 150px. If no URL is provided, the Auth0 logo will be used.
+                      URL of logo to be shown for the tenant. Recommended size is 150px x 150px. If no URL is provided, the Auth0 logo will be used.
+                    type: string
+                  pushedAuthorizationRequestsSupported:
+                    description: |-
+                      (Boolean) Enable pushed authorization requests.
+                      Enable pushed authorization requests.
+                    type: boolean
+                  sandboxVersion:
+                    description: |-
+                      (String) Selected sandbox version for the extensibility environment, which allows you to use custom scripts to extend parts of Auth0's functionality.
+                      Selected sandbox version for the extensibility environment, which allows you to use custom scripts to extend parts of Auth0's functionality.
+                    type: string
+                  sessionCookie:
+                    description: |-
+                      (Block List, Max: 1) Alters behavior of tenant's session cookie. Contains a single mode property. (see below for nested schema)
+                      Alters behavior of tenant's session cookie. Contains a single `mode` property.
+                    items:
+                      properties:
+                        mode:
+                          description: |-
+                            persistent".
+                            Behavior of tenant session cookie. Accepts either "persistent" or "non-persistent".
+                          type: string
+                      type: object
+                    type: array
+                  sessionLifetime:
+                    description: |-
+                      (Number) Number of hours during which a session will stay valid.
+                      Number of hours during which a session will stay valid.
+                    type: number
+                  sessions:
+                    description: |-
+                      (Block List, Max: 1) Sessions related settings for the tenant. (see below for nested schema)
+                      Sessions related settings for the tenant.
+                    items:
+                      properties:
+                        oidcLogoutPromptEnabled:
+                          description: |-
+                            (Boolean) When active, users will be presented with a consent prompt to confirm the logout request if the request is not trustworthy. Turn off the consent prompt to bypass user confirmation.
+                            When active, users will be presented with a consent prompt to confirm the logout request if the request is not trustworthy. Turn off the consent prompt to bypass user confirmation.
+                          type: boolean
+                      type: object
+                    type: array
+                  supportEmail:
+                    description: |-
+                      (String) Support email address for authenticating users.
+                      Support email address for authenticating users.
+                    type: string
+                  supportUrl:
+                    description: |-
+                      (String) Support URL for authenticating users.
+                      Support URL for authenticating users.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  acrValuesSupported:
+                    description: |-
+                      (Set of String) List of supported ACR values.
+                      List of supported ACR values.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  allowOrganizationNameInAuthenticationApi:
+                    description: |-
+                      (Boolean) Whether to accept an organization name instead of an ID on auth endpoints.
+                      Whether to accept an organization name instead of an ID on auth endpoints.
+                    type: boolean
+                  allowedLogoutUrls:
+                    description: |-
+                      (List of String) URLs that Auth0 may redirect to after logout.
+                      URLs that Auth0 may redirect to after logout.
+                    items:
+                      type: string
+                    type: array
+                  customizeMfaInPostloginAction:
+                    description: |-
+                      (Boolean) Whether to enable flexible factors for MFA in the PostLogin action.
+                      Whether to enable flexible factors for MFA in the PostLogin action.
+                    type: boolean
+                  defaultAudience:
+                    description: |-
+                      (String) API Audience to use by default for API Authorization flows. This setting is equivalent to appending the audience to every authorization request made to the tenant for every application.
+                      API Audience to use by default for API Authorization flows. This setting is equivalent to appending the audience to every authorization request made to the tenant for every application.
+                    type: string
+                  defaultDirectory:
+                    description: |-
+                      adldap, ad, auth0, email, sms, waad, and adfs.
+                      Name of the connection to be used for Password Grant exchanges. Options include `auth0-adldap`, `ad`, `auth0`, `email`, `sms`, `waad`, and `adfs`.
+                    type: string
+                  defaultRedirectionUri:
+                    description: |-
+                      (String) The default absolute redirection URI. Must be HTTPS or an empty string.
+                      The default absolute redirection URI. Must be HTTPS or an empty string.
+                    type: string
+                  disableAcrValuesSupported:
+                    description: |-
+                      (Boolean) Disable list of supported ACR values.
+                      Disable list of supported ACR values.
+                    type: boolean
+                  enabledLocales:
+                    description: |-
+                      (List of String) Supported locales for the user interface. The first locale in the list will be used to set the default locale.
+                      Supported locales for the user interface. The first locale in the list will be used to set the default locale.
+                    items:
+                      type: string
+                    type: array
+                  flags:
+                    description: |-
+                      (Block List, Max: 1) Configuration settings for tenant flags. (see below for nested schema)
+                      Configuration settings for tenant flags.
+                    items:
+                      properties:
+                        allowLegacyDelegationGrantTypes:
+                          description: |-
+                            (Boolean) Whether the legacy delegation endpoint will be enabled for your account (true) or not available (false).
+                            Whether the legacy delegation endpoint will be enabled for your account (true) or not available (false).
+                          type: boolean
+                        allowLegacyRoGrantTypes:
+                          description: |-
+                            (Boolean) Whether the legacy auth/ro endpoint (used with resource owner password and passwordless features) will be enabled for your account (true) or not available (false).
+                            Whether the legacy `auth/ro` endpoint (used with resource owner password and passwordless features) will be enabled for your account (true) or not available (false).
+                          type: boolean
+                        allowLegacyTokeninfoEndpoint:
+                          description: |-
+                            (Boolean) If enabled, customers can use Tokeninfo Endpoint, otherwise they can not use it.
+                            If enabled, customers can use Tokeninfo Endpoint, otherwise they can not use it.
+                          type: boolean
+                        dashboardInsightsView:
+                          description: |-
+                            (Boolean) Enables new insights activity page view.
+                            Enables new insights activity page view.
+                          type: boolean
+                        dashboardLogStreamsNext:
+                          description: |-
+                            (Boolean) Enables beta access to log streaming changes.
+                            Enables beta access to log streaming changes.
+                          type: boolean
+                        disableClickjackProtectionHeaders:
+                          description: |-
+                            (Boolean) Indicates whether classic Universal Login prompts include additional security headers to prevent clickjacking.
+                            Indicates whether classic Universal Login prompts include additional security headers to prevent clickjacking.
+                          type: boolean
+                        disableFieldsMapFix:
+                          description: |-
+                            (Boolean) Disables SAML fields map fix for bad mappings with repeated attributes.
+                            Disables SAML fields map fix for bad mappings with repeated attributes.
+                          type: boolean
+                        disableManagementApiSmsObfuscation:
+                          description: |-
+                            (Boolean) If true, SMS phone numbers will not be obfuscated in Management API GET calls.
+                            If true, SMS phone numbers will not be obfuscated in Management API GET calls.
+                          type: boolean
+                        enableAdfsWaadEmailVerification:
+                          description: |-
+                            (Boolean) If enabled, users will be presented with an email verification prompt during their first login when using Azure AD or ADFS connections.
+                            If enabled, users will be presented with an email verification prompt during their first login when using Azure AD or ADFS connections.
+                          type: boolean
+                        enableApisSection:
+                          description: |-
+                            (Boolean) Indicates whether the APIs section is enabled for the tenant.
+                            Indicates whether the APIs section is enabled for the tenant.
+                          type: boolean
+                        enableClientConnections:
+                          description: |-
+                            (Boolean) Indicates whether all current connections should be enabled when a new client is created.
+                            Indicates whether all current connections should be enabled when a new client is created.
+                          type: boolean
+                        enableCustomDomainInEmails:
+                          description: |-
+                            (Boolean) Indicates whether the tenant allows custom domains in emails. Before enabling this flag, you must have a custom domain with status: ready.
+                            Indicates whether the tenant allows custom domains in emails. Before enabling this flag, you must have a custom domain with status: `ready`.
+                          type: boolean
+                        enableDynamicClientRegistration:
+                          description: |-
+                            (Boolean) Indicates whether the tenant allows dynamic client registration.
+                            Indicates whether the tenant allows dynamic client registration.
+                          type: boolean
+                        enableIdtokenApi2:
+                          description: |-
+                            (Boolean) Whether ID tokens can be used to authorize some types of requests to API v2 (true) or not (false).
+                            Whether ID tokens can be used to authorize some types of requests to API v2 (true) or not (false).
+                          type: boolean
+                        enableLegacyLogsSearchV2:
+                          description: |-
+                            (Boolean) Indicates whether to use the older v2 legacy logs search.
+                            Indicates whether to use the older v2 legacy logs search.
+                          type: boolean
+                        enableLegacyProfile:
+                          description: |-
+                            (Boolean) Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
+                            Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
+                          type: boolean
+                        enablePipeline2:
+                          description: |-
+                            (Boolean) Indicates whether advanced API Authorization scenarios are enabled.
+                            Indicates whether advanced API Authorization scenarios are enabled.
+                          type: boolean
+                        enablePublicSignupUserExistsError:
+                          description: |-
+                            (Boolean) Indicates whether the public sign up process shows a user_exists error if the user already exists.
+                            Indicates whether the public sign up process shows a `user_exists` error if the user already exists.
+                          type: boolean
+                        enableSso:
+                          description: |-
+                            (Boolean) Flag indicating whether users will not be prompted to confirm log in before SSO redirection. This flag applies to existing tenants only; new tenants have it enforced as true.
+                            Flag indicating whether users will not be prompted to confirm log in before SSO redirection. This flag applies to existing tenants only; new tenants have it enforced as true.
+                          type: boolean
+                        mfaShowFactorListOnEnrollment:
+                          description: |-
+                            (Boolean) Used to allow users to pick which factor to enroll with from the list of available MFA factors.
+                            Used to allow users to pick which factor to enroll with from the list of available MFA factors.
+                          type: boolean
+                        noDiscloseEnterpriseConnections:
+                          description: |-
+                            (Boolean) Do not Publish Enterprise Connections Information with IdP domains on the lock configuration file.
+                            Do not Publish Enterprise Connections Information with IdP domains on the lock configuration file.
+                          type: boolean
+                        removeAlgFromJwks:
+                          description: |-
+                            (Boolean) Remove alg from jwks(JSON Web Key Sets).
+                            Remove `alg` from jwks(JSON Web Key Sets).
+                          type: boolean
+                        requirePushedAuthorizationRequests:
+                          description: |-
+                            (Boolean, Deprecated) This Flag is not supported by the Auth0 Management API and will be removed in the next major release.
+                            This Flag is not supported by the Auth0 Management API and will be removed in the next major release.
+                          type: boolean
+                        revokeRefreshTokenGrant:
+                          description: |-
+                            (Boolean) Delete underlying grant when a refresh token is revoked via the Authentication API.
+                            Delete underlying grant when a refresh token is revoked via the Authentication API.
+                          type: boolean
+                        useScopeDescriptionsForConsent:
+                          description: |-
+                            (Boolean) Indicates whether to use scope descriptions for consent.
+                            Indicates whether to use scope descriptions for consent.
+                          type: boolean
+                      type: object
+                    type: array
+                  friendlyName:
+                    description: |-
+                      (String) Friendly name for the tenant.
+                      Friendly name for the tenant.
+                    type: string
+                  idleSessionLifetime:
+                    description: |-
+                      (Number) Number of hours during which a session can be inactive before the user must log in again.
+                      Number of hours during which a session can be inactive before the user must log in again.
+                    type: number
+                  mtls:
+                    description: |-
+                      (Block List, Max: 1) Configuration for mTLS. (see below for nested schema)
+                      Configuration for mTLS.
+                    items:
+                      properties:
+                        disable:
+                          description: |-
+                            (Boolean) Disable mTLS settings.
+                            Disable mTLS settings.
+                          type: boolean
+                        enableEndpointAliases:
+                          description: |-
+                            (Boolean) Enable mTLS endpoint aliases.
+                            Enable mTLS endpoint aliases.
+                          type: boolean
+                      type: object
+                    type: array
+                  pictureUrl:
+                    description: |-
+                      (String) URL of logo to be shown for the tenant. Recommended size is 150px x 150px. If no URL is provided, the Auth0 logo will be used.
+                      URL of logo to be shown for the tenant. Recommended size is 150px x 150px. If no URL is provided, the Auth0 logo will be used.
+                    type: string
+                  pushedAuthorizationRequestsSupported:
+                    description: |-
+                      (Boolean) Enable pushed authorization requests.
+                      Enable pushed authorization requests.
+                    type: boolean
+                  sandboxVersion:
+                    description: |-
+                      (String) Selected sandbox version for the extensibility environment, which allows you to use custom scripts to extend parts of Auth0's functionality.
+                      Selected sandbox version for the extensibility environment, which allows you to use custom scripts to extend parts of Auth0's functionality.
+                    type: string
+                  sessionCookie:
+                    description: |-
+                      (Block List, Max: 1) Alters behavior of tenant's session cookie. Contains a single mode property. (see below for nested schema)
+                      Alters behavior of tenant's session cookie. Contains a single `mode` property.
+                    items:
+                      properties:
+                        mode:
+                          description: |-
+                            persistent".
+                            Behavior of tenant session cookie. Accepts either "persistent" or "non-persistent".
+                          type: string
+                      type: object
+                    type: array
+                  sessionLifetime:
+                    description: |-
+                      (Number) Number of hours during which a session will stay valid.
+                      Number of hours during which a session will stay valid.
+                    type: number
+                  sessions:
+                    description: |-
+                      (Block List, Max: 1) Sessions related settings for the tenant. (see below for nested schema)
+                      Sessions related settings for the tenant.
+                    items:
+                      properties:
+                        oidcLogoutPromptEnabled:
+                          description: |-
+                            (Boolean) When active, users will be presented with a consent prompt to confirm the logout request if the request is not trustworthy. Turn off the consent prompt to bypass user confirmation.
+                            When active, users will be presented with a consent prompt to confirm the logout request if the request is not trustworthy. Turn off the consent prompt to bypass user confirmation.
+                          type: boolean
+                      type: object
+                    type: array
+                  supportEmail:
+                    description: |-
+                      (String) Support email address for authenticating users.
+                      Support email address for authenticating users.
+                    type: string
+                  supportUrl:
+                    description: |-
+                      (String) Support URL for authenticating users.
+                      Support URL for authenticating users.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: TenantStatus defines the observed state of Tenant.
+            properties:
+              atProvider:
+                properties:
+                  acrValuesSupported:
+                    description: |-
+                      (Set of String) List of supported ACR values.
+                      List of supported ACR values.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  allowOrganizationNameInAuthenticationApi:
+                    description: |-
+                      (Boolean) Whether to accept an organization name instead of an ID on auth endpoints.
+                      Whether to accept an organization name instead of an ID on auth endpoints.
+                    type: boolean
+                  allowedLogoutUrls:
+                    description: |-
+                      (List of String) URLs that Auth0 may redirect to after logout.
+                      URLs that Auth0 may redirect to after logout.
+                    items:
+                      type: string
+                    type: array
+                  customizeMfaInPostloginAction:
+                    description: |-
+                      (Boolean) Whether to enable flexible factors for MFA in the PostLogin action.
+                      Whether to enable flexible factors for MFA in the PostLogin action.
+                    type: boolean
+                  defaultAudience:
+                    description: |-
+                      (String) API Audience to use by default for API Authorization flows. This setting is equivalent to appending the audience to every authorization request made to the tenant for every application.
+                      API Audience to use by default for API Authorization flows. This setting is equivalent to appending the audience to every authorization request made to the tenant for every application.
+                    type: string
+                  defaultDirectory:
+                    description: |-
+                      adldap, ad, auth0, email, sms, waad, and adfs.
+                      Name of the connection to be used for Password Grant exchanges. Options include `auth0-adldap`, `ad`, `auth0`, `email`, `sms`, `waad`, and `adfs`.
+                    type: string
+                  defaultRedirectionUri:
+                    description: |-
+                      (String) The default absolute redirection URI. Must be HTTPS or an empty string.
+                      The default absolute redirection URI. Must be HTTPS or an empty string.
+                    type: string
+                  disableAcrValuesSupported:
+                    description: |-
+                      (Boolean) Disable list of supported ACR values.
+                      Disable list of supported ACR values.
+                    type: boolean
+                  enabledLocales:
+                    description: |-
+                      (List of String) Supported locales for the user interface. The first locale in the list will be used to set the default locale.
+                      Supported locales for the user interface. The first locale in the list will be used to set the default locale.
+                    items:
+                      type: string
+                    type: array
+                  flags:
+                    description: |-
+                      (Block List, Max: 1) Configuration settings for tenant flags. (see below for nested schema)
+                      Configuration settings for tenant flags.
+                    items:
+                      properties:
+                        allowLegacyDelegationGrantTypes:
+                          description: |-
+                            (Boolean) Whether the legacy delegation endpoint will be enabled for your account (true) or not available (false).
+                            Whether the legacy delegation endpoint will be enabled for your account (true) or not available (false).
+                          type: boolean
+                        allowLegacyRoGrantTypes:
+                          description: |-
+                            (Boolean) Whether the legacy auth/ro endpoint (used with resource owner password and passwordless features) will be enabled for your account (true) or not available (false).
+                            Whether the legacy `auth/ro` endpoint (used with resource owner password and passwordless features) will be enabled for your account (true) or not available (false).
+                          type: boolean
+                        allowLegacyTokeninfoEndpoint:
+                          description: |-
+                            (Boolean) If enabled, customers can use Tokeninfo Endpoint, otherwise they can not use it.
+                            If enabled, customers can use Tokeninfo Endpoint, otherwise they can not use it.
+                          type: boolean
+                        dashboardInsightsView:
+                          description: |-
+                            (Boolean) Enables new insights activity page view.
+                            Enables new insights activity page view.
+                          type: boolean
+                        dashboardLogStreamsNext:
+                          description: |-
+                            (Boolean) Enables beta access to log streaming changes.
+                            Enables beta access to log streaming changes.
+                          type: boolean
+                        disableClickjackProtectionHeaders:
+                          description: |-
+                            (Boolean) Indicates whether classic Universal Login prompts include additional security headers to prevent clickjacking.
+                            Indicates whether classic Universal Login prompts include additional security headers to prevent clickjacking.
+                          type: boolean
+                        disableFieldsMapFix:
+                          description: |-
+                            (Boolean) Disables SAML fields map fix for bad mappings with repeated attributes.
+                            Disables SAML fields map fix for bad mappings with repeated attributes.
+                          type: boolean
+                        disableManagementApiSmsObfuscation:
+                          description: |-
+                            (Boolean) If true, SMS phone numbers will not be obfuscated in Management API GET calls.
+                            If true, SMS phone numbers will not be obfuscated in Management API GET calls.
+                          type: boolean
+                        enableAdfsWaadEmailVerification:
+                          description: |-
+                            (Boolean) If enabled, users will be presented with an email verification prompt during their first login when using Azure AD or ADFS connections.
+                            If enabled, users will be presented with an email verification prompt during their first login when using Azure AD or ADFS connections.
+                          type: boolean
+                        enableApisSection:
+                          description: |-
+                            (Boolean) Indicates whether the APIs section is enabled for the tenant.
+                            Indicates whether the APIs section is enabled for the tenant.
+                          type: boolean
+                        enableClientConnections:
+                          description: |-
+                            (Boolean) Indicates whether all current connections should be enabled when a new client is created.
+                            Indicates whether all current connections should be enabled when a new client is created.
+                          type: boolean
+                        enableCustomDomainInEmails:
+                          description: |-
+                            (Boolean) Indicates whether the tenant allows custom domains in emails. Before enabling this flag, you must have a custom domain with status: ready.
+                            Indicates whether the tenant allows custom domains in emails. Before enabling this flag, you must have a custom domain with status: `ready`.
+                          type: boolean
+                        enableDynamicClientRegistration:
+                          description: |-
+                            (Boolean) Indicates whether the tenant allows dynamic client registration.
+                            Indicates whether the tenant allows dynamic client registration.
+                          type: boolean
+                        enableIdtokenApi2:
+                          description: |-
+                            (Boolean) Whether ID tokens can be used to authorize some types of requests to API v2 (true) or not (false).
+                            Whether ID tokens can be used to authorize some types of requests to API v2 (true) or not (false).
+                          type: boolean
+                        enableLegacyLogsSearchV2:
+                          description: |-
+                            (Boolean) Indicates whether to use the older v2 legacy logs search.
+                            Indicates whether to use the older v2 legacy logs search.
+                          type: boolean
+                        enableLegacyProfile:
+                          description: |-
+                            (Boolean) Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
+                            Whether ID tokens and the userinfo endpoint includes a complete user profile (true) or only OpenID Connect claims (false).
+                          type: boolean
+                        enablePipeline2:
+                          description: |-
+                            (Boolean) Indicates whether advanced API Authorization scenarios are enabled.
+                            Indicates whether advanced API Authorization scenarios are enabled.
+                          type: boolean
+                        enablePublicSignupUserExistsError:
+                          description: |-
+                            (Boolean) Indicates whether the public sign up process shows a user_exists error if the user already exists.
+                            Indicates whether the public sign up process shows a `user_exists` error if the user already exists.
+                          type: boolean
+                        enableSso:
+                          description: |-
+                            (Boolean) Flag indicating whether users will not be prompted to confirm log in before SSO redirection. This flag applies to existing tenants only; new tenants have it enforced as true.
+                            Flag indicating whether users will not be prompted to confirm log in before SSO redirection. This flag applies to existing tenants only; new tenants have it enforced as true.
+                          type: boolean
+                        mfaShowFactorListOnEnrollment:
+                          description: |-
+                            (Boolean) Used to allow users to pick which factor to enroll with from the list of available MFA factors.
+                            Used to allow users to pick which factor to enroll with from the list of available MFA factors.
+                          type: boolean
+                        noDiscloseEnterpriseConnections:
+                          description: |-
+                            (Boolean) Do not Publish Enterprise Connections Information with IdP domains on the lock configuration file.
+                            Do not Publish Enterprise Connections Information with IdP domains on the lock configuration file.
+                          type: boolean
+                        removeAlgFromJwks:
+                          description: |-
+                            (Boolean) Remove alg from jwks(JSON Web Key Sets).
+                            Remove `alg` from jwks(JSON Web Key Sets).
+                          type: boolean
+                        requirePushedAuthorizationRequests:
+                          description: |-
+                            (Boolean, Deprecated) This Flag is not supported by the Auth0 Management API and will be removed in the next major release.
+                            This Flag is not supported by the Auth0 Management API and will be removed in the next major release.
+                          type: boolean
+                        revokeRefreshTokenGrant:
+                          description: |-
+                            (Boolean) Delete underlying grant when a refresh token is revoked via the Authentication API.
+                            Delete underlying grant when a refresh token is revoked via the Authentication API.
+                          type: boolean
+                        useScopeDescriptionsForConsent:
+                          description: |-
+                            (Boolean) Indicates whether to use scope descriptions for consent.
+                            Indicates whether to use scope descriptions for consent.
+                          type: boolean
+                      type: object
+                    type: array
+                  friendlyName:
+                    description: |-
+                      (String) Friendly name for the tenant.
+                      Friendly name for the tenant.
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  idleSessionLifetime:
+                    description: |-
+                      (Number) Number of hours during which a session can be inactive before the user must log in again.
+                      Number of hours during which a session can be inactive before the user must log in again.
+                    type: number
+                  mtls:
+                    description: |-
+                      (Block List, Max: 1) Configuration for mTLS. (see below for nested schema)
+                      Configuration for mTLS.
+                    items:
+                      properties:
+                        disable:
+                          description: |-
+                            (Boolean) Disable mTLS settings.
+                            Disable mTLS settings.
+                          type: boolean
+                        enableEndpointAliases:
+                          description: |-
+                            (Boolean) Enable mTLS endpoint aliases.
+                            Enable mTLS endpoint aliases.
+                          type: boolean
+                      type: object
+                    type: array
+                  pictureUrl:
+                    description: |-
+                      (String) URL of logo to be shown for the tenant. Recommended size is 150px x 150px. If no URL is provided, the Auth0 logo will be used.
+                      URL of logo to be shown for the tenant. Recommended size is 150px x 150px. If no URL is provided, the Auth0 logo will be used.
+                    type: string
+                  pushedAuthorizationRequestsSupported:
+                    description: |-
+                      (Boolean) Enable pushed authorization requests.
+                      Enable pushed authorization requests.
+                    type: boolean
+                  sandboxVersion:
+                    description: |-
+                      (String) Selected sandbox version for the extensibility environment, which allows you to use custom scripts to extend parts of Auth0's functionality.
+                      Selected sandbox version for the extensibility environment, which allows you to use custom scripts to extend parts of Auth0's functionality.
+                    type: string
+                  sessionCookie:
+                    description: |-
+                      (Block List, Max: 1) Alters behavior of tenant's session cookie. Contains a single mode property. (see below for nested schema)
+                      Alters behavior of tenant's session cookie. Contains a single `mode` property.
+                    items:
+                      properties:
+                        mode:
+                          description: |-
+                            persistent".
+                            Behavior of tenant session cookie. Accepts either "persistent" or "non-persistent".
+                          type: string
+                      type: object
+                    type: array
+                  sessionLifetime:
+                    description: |-
+                      (Number) Number of hours during which a session will stay valid.
+                      Number of hours during which a session will stay valid.
+                    type: number
+                  sessions:
+                    description: |-
+                      (Block List, Max: 1) Sessions related settings for the tenant. (see below for nested schema)
+                      Sessions related settings for the tenant.
+                    items:
+                      properties:
+                        oidcLogoutPromptEnabled:
+                          description: |-
+                            (Boolean) When active, users will be presented with a consent prompt to confirm the logout request if the request is not trustworthy. Turn off the consent prompt to bypass user confirmation.
+                            When active, users will be presented with a consent prompt to confirm the logout request if the request is not trustworthy. Turn off the consent prompt to bypass user confirmation.
+                          type: boolean
+                      type: object
+                    type: array
+                  supportEmail:
+                    description: |-
+                      (String) Support email address for authenticating users.
+                      Support email address for authenticating users.
+                    type: string
+                  supportUrl:
+                    description: |-
+                      (String) Support URL for authenticating users.
+                      Support URL for authenticating users.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

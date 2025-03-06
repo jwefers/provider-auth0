@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "template.upbound.io"
+	Group   = "auth0.auth0.com"
 	Version = "v1beta1"
 )
 

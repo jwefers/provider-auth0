@@ -1,0 +1,32 @@
+apiVersion: tenant.auth0.com/v1alpha1
+kind: Tenant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tenant/v1alpha1/tenant
+  labels:
+    testing.upbound.io/example-name: my_tenant
+  name: my-tenant
+spec:
+  forProvider:
+    allowedLogoutUrls:
+    - http://example.com/logout
+    defaultRedirectionUri: https://example.com/login
+    enabledLocales:
+    - en
+    flags:
+    - disableClickjackProtectionHeaders: true
+      disableFieldsMapFix: false
+      disableManagementApiSmsObfuscation: false
+      enablePublicSignupUserExistsError: true
+      noDiscloseEnterpriseConnections: false
+      useScopeDescriptionsForConsent: true
+    friendlyName: Tenant Name
+    pictureUrl: http://example.com/logo.png
+    sandboxVersion: "12"
+    sessionCookie:
+    - mode: non-persistent
+    sessionLifetime: 8760
+    sessions:
+    - oidcLogoutPromptEnabled: false
+    supportEmail: support@example.com
+    supportUrl: http://example.com/support
