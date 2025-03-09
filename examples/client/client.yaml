@@ -1,0 +1,9 @@
+apiVersion: client.auth0.com/v1alpha1
+kind: Client
+metadata:
+  name: my-application
+  namespace: testauth0
+spec:
+  forProvider:
+    name: my application
+  # prov

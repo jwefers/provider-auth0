@@ -10,6 +10,7 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
+	auth0client "github.com/jwefers/provider-auth0/config/client"
 	"github.com/jwefers/provider-auth0/config/tenant"
 )
 
@@ -37,6 +38,7 @@ func GetProvider() *ujconfig.Provider {
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
 		tenant.Configure,
+		auth0client.Configure,
 	} {
 		configure(pc)
 	}

@@ -1,11 +1,12 @@
-apiVersion: auth0.upbound.io/v1beta1
+apiVersion: auth0.auth0.com/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
+  namespace: testauth0
 spec:
   credentials:
     source: Secret
     secretRef:
-      name: example-creds
-      namespace: crossplane-system
+      name: auth0-example-creds
+      namespace: testauth0
       key: credentials

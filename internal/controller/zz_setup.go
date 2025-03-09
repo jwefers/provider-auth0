@@ -9,6 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	client "github.com/jwefers/provider-auth0/internal/controller/client/client"
 	providerconfig "github.com/jwefers/provider-auth0/internal/controller/providerconfig"
 	tenant "github.com/jwefers/provider-auth0/internal/controller/tenant/tenant"
 )
@@ -17,6 +18,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		client.Setup,
 		providerconfig.Setup,
 		tenant.Setup,
 	} {

@@ -29,8 +29,8 @@ const (
 	// config keys
 	keyDomain       = "domain"
 	keyClientId     = "client_id"
-	keyClientSecret = "clientSecret"
-	keyDebug        = "debug"
+	keyClientSecret = "client_secret"
+	// keyDebug        = "debug"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -73,7 +73,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			keyDomain:       creds[keyDomain],
 			keyClientId:     creds[keyClientId],
 			keyClientSecret: creds[keyClientSecret],
-			keyDebug:        creds[keyDebug],
+			// keyDebug:        creds[keyDebug],
 		}
 		return ps, nil
 	}

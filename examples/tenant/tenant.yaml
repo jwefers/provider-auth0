@@ -1,0 +1,8 @@
+apiVersion: tenant.auth0.com/v1alpha1
+kind: Tenant
+metadata:
+  name: my-tenant
+spec:
+  forProvider:
+  providerConfigRef:
+    name: default
