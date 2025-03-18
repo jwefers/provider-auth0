@@ -1,0 +1,32 @@
+apiVersion: resourceserver.auth0.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: resourceserver/v1alpha1/server
+  labels:
+    testing.upbound.io/example-name: my_resource_server
+  name: my-resource-server
+spec:
+  forProvider:
+    allowOfflineAccess: true
+    authorizationDetails:
+    - type: payment
+    - type: non-payment
+    consentPolicy: transactional-authorization-with-mfa
+    identifier: https://api.example.com
+    name: Example Resource Server (Managed by Terraform)
+    proofOfPossession:
+    - mechanism: mtls
+      required: true
+    signingAlg: RS256
+    skipConsentForVerifiableFirstPartyClients: true
+    tokenEncryption:
+    - encryptionKey:
+      - algorithm: RSA-OAEP-256
+        name: keyname
+        pem: |
+          -----BEGIN CERTIFICATE-----
+          MIIFWDCCA0ACCQDXqpBo3R...G9w0BAQsFADBuMQswCQYDVQQGEwJl
+          -----END CERTIFICATE-----
+      format: compact-nested-jwe
+    tokenLifetime: 8600

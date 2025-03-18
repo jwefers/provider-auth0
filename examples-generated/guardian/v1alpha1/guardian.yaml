@@ -1,0 +1,53 @@
+apiVersion: guardian.auth0.com/v1alpha1
+kind: Guardian
+metadata:
+  annotations:
+    meta.upbound.io/example-id: guardian/v1alpha1/guardian
+  labels:
+    testing.upbound.io/example-name: my_guardian
+  name: my-guardian
+spec:
+  forProvider:
+    duo:
+    - enabled: true
+      hostname: api-hostname
+      integrationKey: someKey
+      secretKeySecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+    email: true
+    otp: true
+    phone:
+    - enabled: true
+      messageTypes:
+      - sms
+      - voice
+      options:
+      - enrollmentMessage: '{{code}} is your verification code for {{tenant.friendly_name}}.
+          Please enter this code to verify your enrollment.'
+        verificationMessage: '{{code}} is your verification code for {{tenant.friendly_name}}.'
+      provider: auth0
+    policy: all-applications
+    push:
+    - amazonSns:
+      - awsAccessKeyId: test1
+        awsRegion: us-west-1
+        awsSecretAccessKeySecretRef:
+          key: example-key
+          name: example-secret
+          namespace: upbound-system
+        snsApnsPlatformApplicationArn: test_arn
+        snsGcmPlatformApplicationArn: test_arn
+      customApp:
+      - appName: CustomApp
+        appleAppLink: https://itunes.apple.com/us/app/my-app/id123121
+        googleAppLink: https://play.google.com/store/apps/details?id=com.my.app
+      enabled: true
+      provider: sns
+    recoveryCode: true
+    webauthnPlatform:
+    - enabled: true
+    webauthnRoaming:
+    - enabled: true
+      userVerification: required

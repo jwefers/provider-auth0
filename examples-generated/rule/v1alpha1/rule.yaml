@@ -1,0 +1,16 @@
+apiVersion: rule.auth0.com/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rule/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: my_rule
+  name: my-rule
+spec:
+  forProvider:
+    enabled: true
+    name: empty-rule
+    script: |2
+          function (user, context, callback) {
+            callback(null, user, context);
+          }

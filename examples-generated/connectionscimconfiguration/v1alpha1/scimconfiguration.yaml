@@ -1,0 +1,63 @@
+apiVersion: connectionscimconfiguration.auth0.com/v1alpha1
+kind: ScimConfiguration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionscimconfiguration/v1alpha1/scimconfiguration
+  labels:
+    testing.upbound.io/example-name: my_conn_scim_configuration_default
+  name: my-conn-scim-configuration-default
+spec:
+  forProvider:
+    connectionId: ${auth0_connection.my_enterprise_connection.id}
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionscimconfiguration/v1alpha1/scimconfiguration
+  labels:
+    testing.upbound.io/example-name: my_enterprise_connection
+  name: my-enterprise-connection
+spec:
+  forProvider:
+    displayName: My Enterprise Connection
+    name: my-enterprise-connection
+    options:
+    - authorizationEndpoint: https://example.okta.com/oauth2/v1/authorize
+      clientId: "1234567"
+      clientSecretSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      issuer: https://example.okta.com
+      jwksUri: https://example.okta.com/oauth2/v1/keys
+      tokenEndpoint: https://example.okta.com/oauth2/v1/token
+    strategy: okta
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionscimconfiguration/v1alpha1/scimconfiguration
+  labels:
+    testing.upbound.io/example-name: my_enterprise_connection_2
+  name: my-enterprise-connection-2
+spec:
+  forProvider:
+    displayName: My Enterprise Connection 2
+    name: my-enterprise-connection-2
+    options:
+    - authorizationEndpoint: https://example.okta.com/oauth2/v1/authorize
+      clientId: "1234567"
+      clientSecretSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      issuer: https://example.okta.com
+      jwksUri: https://example.okta.com/oauth2/v1/keys
+      tokenEndpoint: https://example.okta.com/oauth2/v1/token
+    strategy: okta

@@ -1,0 +1,46 @@
+apiVersion: promptscreenrenderer.auth0.com/v1alpha1
+kind: ScreenRenderer
+metadata:
+  annotations:
+    meta.upbound.io/example-id: promptscreenrenderer/v1alpha1/screenrenderer
+  labels:
+    testing.upbound.io/example-name: prompt_screen_renderer
+  name: prompt-screen-renderer
+spec:
+  forProvider:
+    contextConfiguration:
+    - branding.settings
+    - branding.themes.default
+    - client.logo_uri
+    - client.description
+    - client.metadata.key
+    - organization.display_name
+    - organization.branding
+    - organization.metadata.key
+    - screen.texts
+    - tenant.name
+    - tenant.friendly_name
+    - tenant.enabled_locales
+    - untrusted_data.submitted_form_data
+    - untrusted_data.authorization_params.login_hint
+    - untrusted_data.authorization_params.screen_hint
+    - untrusted_data.authorization_params.ui_locales
+    - untrusted_data.authorization_params.ext-key
+    defaultHeadTagsDisabled: false
+    headTags: |-
+      ${jsonencode([
+          {
+            attributes : {
+              "async" : true,
+              "defer" : true,
+              "integrity" : [
+                "sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+              ],
+              "src" : "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            },
+            tag : "script"
+          }
+        ])}
+    promptType: login-id
+    renderingMode: advanced
+    screenName: login-id

@@ -1,0 +1,28 @@
+apiVersion: logstream.auth0.com/v1alpha1
+kind: Stream
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logstream/v1alpha1/stream
+  labels:
+    testing.upbound.io/example-name: my_webhook
+  name: my-webhook
+spec:
+  forProvider:
+    filters:
+    - name: auth.login.fail
+      type: category
+    - name: auth.signup.fail
+      type: category
+    name: HTTP log stream
+    sink:
+    - httpAuthorizationSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      httpContentFormat: JSONOBJECT
+      httpContentType: application/json
+      httpCustomHeaders:
+      - header: foo
+        value: bar
+      httpEndpoint: https://example.com/logs
+    type: http

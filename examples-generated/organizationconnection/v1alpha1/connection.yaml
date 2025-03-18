@@ -1,0 +1,45 @@
+apiVersion: organizationconnection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnection/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: my_org_conn
+  name: my-org-conn
+spec:
+  forProvider:
+    assignMembershipOnLogin: true
+    connectionId: ${auth0_connection.my_connection.id}
+    isSignupEnabled: false
+    organizationId: ${auth0_organization.my_organization.id}
+    showAsButton: true
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnection/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: my_connection
+  name: my-connection
+spec:
+  forProvider:
+    name: My Connection
+    strategy: auth0
+
+---
+
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnection/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: my_organization
+  name: my-organization
+spec:
+  forProvider:
+    displayName: My Organization
+    name: my-organization

@@ -1,0 +1,31 @@
+apiVersion: brandingtheme.auth0.com/v1alpha1
+kind: Theme
+metadata:
+  annotations:
+    meta.upbound.io/example-id: brandingtheme/v1alpha1/theme
+  labels:
+    testing.upbound.io/example-name: my_theme
+  name: my-theme
+spec:
+  forProvider:
+    borders:
+    - {}
+    colors:
+    - {}
+    fonts:
+    - bodyText:
+      - {}
+      buttonsText:
+      - {}
+      inputLabels:
+      - {}
+      links:
+      - {}
+      subtitle:
+      - {}
+      title:
+      - {}
+    pageBackground:
+    - {}
+    widget:
+    - {}

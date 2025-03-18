@@ -1,0 +1,42 @@
+apiVersion: action.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/action
+  labels:
+    testing.upbound.io/example-name: my_action
+  name: my-action
+spec:
+  forProvider:
+    code: |
+      /**
+       * Handler that will be called during the execution of a PostLogin flow.
+       *
+       * @param {Event} event - Details about the user and the context in which they are logging in.
+       * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
+       */
+       exports.onExecutePostLogin = async (event, api) => {
+         console.log(event);
+       };
+    dependencies:
+    - name: lodash
+      version: latest
+    - name: request
+      version: latest
+    deploy: true
+    name: ${format("Test Action %s", timestamp())}
+    runtime: node18
+    secrets:
+    - name: FOO
+      valueSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+    - name: BAR
+      valueSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+    supportedTriggers:
+    - id: post-login
+      version: v3

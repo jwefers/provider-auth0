@@ -1,0 +1,12 @@
+apiVersion: customdomain.auth0.com/v1alpha1
+kind: Domain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: customdomain/v1alpha1/domain
+  labels:
+    testing.upbound.io/example-name: my_custom_domain
+  name: my-custom-domain
+spec:
+  forProvider:
+    domain: auth.example.com
+    type: auth0_managed_certs

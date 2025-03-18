@@ -1,0 +1,27 @@
+apiVersion: resourceserverscope.auth0.com/v1alpha1
+kind: ServerScope
+metadata:
+  annotations:
+    meta.upbound.io/example-id: resourceserverscope/v1alpha1/serverscope
+  labels:
+    testing.upbound.io/example-name: read_posts
+  name: read-posts
+spec:
+  forProvider:
+    resourceServerIdentifier: https://api.example.com
+    scope: read:posts
+
+---
+
+apiVersion: resourceserver.auth0.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: resourceserverscope/v1alpha1/serverscope
+  labels:
+    testing.upbound.io/example-name: resource_server
+  name: resource-server
+spec:
+  forProvider:
+    identifier: https://api.example.com
+    name: Example Resource Server (Managed by Terraform)

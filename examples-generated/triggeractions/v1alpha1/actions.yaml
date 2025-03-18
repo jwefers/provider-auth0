@@ -1,0 +1,60 @@
+apiVersion: triggeractions.auth0.com/v1alpha1
+kind: Actions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: triggeractions/v1alpha1/actions
+  labels:
+    testing.upbound.io/example-name: login_flow
+  name: login-flow
+spec:
+  forProvider:
+    actions:
+    - displayName: ${format("Test Action %s", timestamp())}
+      id: ${auth0_action.action_foo.id}
+    - displayName: ${format("Test Action %s", timestamp())}
+      id: ${auth0_action.action_bar.id}
+    trigger: post-login
+
+---
+
+apiVersion: action.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: triggeractions/v1alpha1/actions
+  labels:
+    testing.upbound.io/example-name: action_bar
+  name: action-bar
+spec:
+  forProvider:
+    code: |
+      exports.onContinuePostLogin = async (event, api) => {
+        console.log("bar");
+      };"
+    deploy: true
+    name: Test Trigger Binding Bar
+    supportedTriggers:
+    - id: post-login
+      version: v3
+
+---
+
+apiVersion: action.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: triggeractions/v1alpha1/actions
+  labels:
+    testing.upbound.io/example-name: action_foo
+  name: action-foo
+spec:
+  forProvider:
+    code: |
+      exports.onContinuePostLogin = async (event, api) => {
+        console.log("foo");
+      };"
+    deploy: true
+    name: Test Trigger Binding Foo
+    supportedTriggers:
+    - id: post-login
+      version: v3

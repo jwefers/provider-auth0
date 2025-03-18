@@ -10,8 +10,63 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/jwefers/provider-auth0/apis/client/v1alpha1"
+	v1alpha1 "github.com/jwefers/provider-auth0/apis/action/v1alpha1"
+	v1alpha1attackprotection "github.com/jwefers/provider-auth0/apis/attackprotection/v1alpha1"
+	v1alpha1branding "github.com/jwefers/provider-auth0/apis/branding/v1alpha1"
+	v1alpha1brandingtheme "github.com/jwefers/provider-auth0/apis/brandingtheme/v1alpha1"
+	v1alpha1client "github.com/jwefers/provider-auth0/apis/client/v1alpha1"
+	v1alpha1clientcredentials "github.com/jwefers/provider-auth0/apis/clientcredentials/v1alpha1"
+	v1alpha1clientgrant "github.com/jwefers/provider-auth0/apis/clientgrant/v1alpha1"
+	v1alpha1connection "github.com/jwefers/provider-auth0/apis/connection/v1alpha1"
+	v1alpha1connectionclient "github.com/jwefers/provider-auth0/apis/connectionclient/v1alpha1"
+	v1alpha1connectionclients "github.com/jwefers/provider-auth0/apis/connectionclients/v1alpha1"
+	v1alpha1connectionscimconfiguration "github.com/jwefers/provider-auth0/apis/connectionscimconfiguration/v1alpha1"
+	v1alpha1customdomain "github.com/jwefers/provider-auth0/apis/customdomain/v1alpha1"
+	v1alpha1customdomainverification "github.com/jwefers/provider-auth0/apis/customdomainverification/v1alpha1"
+	v1alpha1emailprovider "github.com/jwefers/provider-auth0/apis/emailprovider/v1alpha1"
+	v1alpha1emailtemplate "github.com/jwefers/provider-auth0/apis/emailtemplate/v1alpha1"
+	v1alpha1encryptionkeymanager "github.com/jwefers/provider-auth0/apis/encryptionkeymanager/v1alpha1"
+	v1alpha1flow "github.com/jwefers/provider-auth0/apis/flow/v1alpha1"
+	v1alpha1flowvaultconnection "github.com/jwefers/provider-auth0/apis/flowvaultconnection/v1alpha1"
+	v1alpha1form "github.com/jwefers/provider-auth0/apis/form/v1alpha1"
+	v1alpha1guardian "github.com/jwefers/provider-auth0/apis/guardian/v1alpha1"
+	v1alpha1hook "github.com/jwefers/provider-auth0/apis/hook/v1alpha1"
+	v1alpha1logstream "github.com/jwefers/provider-auth0/apis/logstream/v1alpha1"
+	v1alpha1organization "github.com/jwefers/provider-auth0/apis/organization/v1alpha1"
+	v1alpha1organizationclientgrant "github.com/jwefers/provider-auth0/apis/organizationclientgrant/v1alpha1"
+	v1alpha1organizationconnection "github.com/jwefers/provider-auth0/apis/organizationconnection/v1alpha1"
+	v1alpha1organizationconnections "github.com/jwefers/provider-auth0/apis/organizationconnections/v1alpha1"
+	v1alpha1organizationmember "github.com/jwefers/provider-auth0/apis/organizationmember/v1alpha1"
+	v1alpha1organizationmemberrole "github.com/jwefers/provider-auth0/apis/organizationmemberrole/v1alpha1"
+	v1alpha1organizationmemberroles "github.com/jwefers/provider-auth0/apis/organizationmemberroles/v1alpha1"
+	v1alpha1organizationmembers "github.com/jwefers/provider-auth0/apis/organizationmembers/v1alpha1"
+	v1alpha1pages "github.com/jwefers/provider-auth0/apis/pages/v1alpha1"
+	v1alpha1phoneprovider "github.com/jwefers/provider-auth0/apis/phoneprovider/v1alpha1"
+	v1alpha1prompt "github.com/jwefers/provider-auth0/apis/prompt/v1alpha1"
+	v1alpha1promptcustomtext "github.com/jwefers/provider-auth0/apis/promptcustomtext/v1alpha1"
+	v1alpha1promptpartials "github.com/jwefers/provider-auth0/apis/promptpartials/v1alpha1"
+	v1alpha1promptscreenpartial "github.com/jwefers/provider-auth0/apis/promptscreenpartial/v1alpha1"
+	v1alpha1promptscreenpartials "github.com/jwefers/provider-auth0/apis/promptscreenpartials/v1alpha1"
+	v1alpha1promptscreenrenderer "github.com/jwefers/provider-auth0/apis/promptscreenrenderer/v1alpha1"
+	v1alpha1resourceserver "github.com/jwefers/provider-auth0/apis/resourceserver/v1alpha1"
+	v1alpha1resourceserverscope "github.com/jwefers/provider-auth0/apis/resourceserverscope/v1alpha1"
+	v1alpha1resourceserverscopes "github.com/jwefers/provider-auth0/apis/resourceserverscopes/v1alpha1"
+	v1alpha1role "github.com/jwefers/provider-auth0/apis/role/v1alpha1"
+	v1alpha1rolepermission "github.com/jwefers/provider-auth0/apis/rolepermission/v1alpha1"
+	v1alpha1rolepermissions "github.com/jwefers/provider-auth0/apis/rolepermissions/v1alpha1"
+	v1alpha1rule "github.com/jwefers/provider-auth0/apis/rule/v1alpha1"
+	v1alpha1ruleconfig "github.com/jwefers/provider-auth0/apis/ruleconfig/v1alpha1"
+	v1alpha1selfserviceprofile "github.com/jwefers/provider-auth0/apis/selfserviceprofile/v1alpha1"
+	v1alpha1selfserviceprofilecustomtext "github.com/jwefers/provider-auth0/apis/selfserviceprofilecustomtext/v1alpha1"
 	v1alpha1tenant "github.com/jwefers/provider-auth0/apis/tenant/v1alpha1"
+	v1alpha1tokenexchangeprofile "github.com/jwefers/provider-auth0/apis/tokenexchangeprofile/v1alpha1"
+	v1alpha1triggeraction "github.com/jwefers/provider-auth0/apis/triggeraction/v1alpha1"
+	v1alpha1triggeractions "github.com/jwefers/provider-auth0/apis/triggeractions/v1alpha1"
+	v1alpha1user "github.com/jwefers/provider-auth0/apis/user/v1alpha1"
+	v1alpha1userpermission "github.com/jwefers/provider-auth0/apis/userpermission/v1alpha1"
+	v1alpha1userpermissions "github.com/jwefers/provider-auth0/apis/userpermissions/v1alpha1"
+	v1alpha1userrole "github.com/jwefers/provider-auth0/apis/userrole/v1alpha1"
+	v1alpha1userroles "github.com/jwefers/provider-auth0/apis/userroles/v1alpha1"
 	v1alpha1apis "github.com/jwefers/provider-auth0/apis/v1alpha1"
 	v1beta1 "github.com/jwefers/provider-auth0/apis/v1beta1"
 )
@@ -20,7 +75,62 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1attackprotection.SchemeBuilder.AddToScheme,
+		v1alpha1branding.SchemeBuilder.AddToScheme,
+		v1alpha1brandingtheme.SchemeBuilder.AddToScheme,
+		v1alpha1client.SchemeBuilder.AddToScheme,
+		v1alpha1clientcredentials.SchemeBuilder.AddToScheme,
+		v1alpha1clientgrant.SchemeBuilder.AddToScheme,
+		v1alpha1connection.SchemeBuilder.AddToScheme,
+		v1alpha1connectionclient.SchemeBuilder.AddToScheme,
+		v1alpha1connectionclients.SchemeBuilder.AddToScheme,
+		v1alpha1connectionscimconfiguration.SchemeBuilder.AddToScheme,
+		v1alpha1customdomain.SchemeBuilder.AddToScheme,
+		v1alpha1customdomainverification.SchemeBuilder.AddToScheme,
+		v1alpha1emailprovider.SchemeBuilder.AddToScheme,
+		v1alpha1emailtemplate.SchemeBuilder.AddToScheme,
+		v1alpha1encryptionkeymanager.SchemeBuilder.AddToScheme,
+		v1alpha1flow.SchemeBuilder.AddToScheme,
+		v1alpha1flowvaultconnection.SchemeBuilder.AddToScheme,
+		v1alpha1form.SchemeBuilder.AddToScheme,
+		v1alpha1guardian.SchemeBuilder.AddToScheme,
+		v1alpha1hook.SchemeBuilder.AddToScheme,
+		v1alpha1logstream.SchemeBuilder.AddToScheme,
+		v1alpha1organization.SchemeBuilder.AddToScheme,
+		v1alpha1organizationclientgrant.SchemeBuilder.AddToScheme,
+		v1alpha1organizationconnection.SchemeBuilder.AddToScheme,
+		v1alpha1organizationconnections.SchemeBuilder.AddToScheme,
+		v1alpha1organizationmember.SchemeBuilder.AddToScheme,
+		v1alpha1organizationmemberrole.SchemeBuilder.AddToScheme,
+		v1alpha1organizationmemberroles.SchemeBuilder.AddToScheme,
+		v1alpha1organizationmembers.SchemeBuilder.AddToScheme,
+		v1alpha1pages.SchemeBuilder.AddToScheme,
+		v1alpha1phoneprovider.SchemeBuilder.AddToScheme,
+		v1alpha1prompt.SchemeBuilder.AddToScheme,
+		v1alpha1promptcustomtext.SchemeBuilder.AddToScheme,
+		v1alpha1promptpartials.SchemeBuilder.AddToScheme,
+		v1alpha1promptscreenpartial.SchemeBuilder.AddToScheme,
+		v1alpha1promptscreenpartials.SchemeBuilder.AddToScheme,
+		v1alpha1promptscreenrenderer.SchemeBuilder.AddToScheme,
+		v1alpha1resourceserver.SchemeBuilder.AddToScheme,
+		v1alpha1resourceserverscope.SchemeBuilder.AddToScheme,
+		v1alpha1resourceserverscopes.SchemeBuilder.AddToScheme,
+		v1alpha1role.SchemeBuilder.AddToScheme,
+		v1alpha1rolepermission.SchemeBuilder.AddToScheme,
+		v1alpha1rolepermissions.SchemeBuilder.AddToScheme,
+		v1alpha1rule.SchemeBuilder.AddToScheme,
+		v1alpha1ruleconfig.SchemeBuilder.AddToScheme,
+		v1alpha1selfserviceprofile.SchemeBuilder.AddToScheme,
+		v1alpha1selfserviceprofilecustomtext.SchemeBuilder.AddToScheme,
 		v1alpha1tenant.SchemeBuilder.AddToScheme,
+		v1alpha1tokenexchangeprofile.SchemeBuilder.AddToScheme,
+		v1alpha1triggeraction.SchemeBuilder.AddToScheme,
+		v1alpha1triggeractions.SchemeBuilder.AddToScheme,
+		v1alpha1user.SchemeBuilder.AddToScheme,
+		v1alpha1userpermission.SchemeBuilder.AddToScheme,
+		v1alpha1userpermissions.SchemeBuilder.AddToScheme,
+		v1alpha1userrole.SchemeBuilder.AddToScheme,
+		v1alpha1userroles.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 	)

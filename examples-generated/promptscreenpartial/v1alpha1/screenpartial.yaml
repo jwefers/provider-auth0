@@ -1,0 +1,15 @@
+apiVersion: promptscreenpartial.auth0.com/v1alpha1
+kind: ScreenPartial
+metadata:
+  annotations:
+    meta.upbound.io/example-id: promptscreenpartial/v1alpha1/screenpartial
+  labels:
+    testing.upbound.io/example-name: login
+  name: login
+spec:
+  forProvider:
+    insertionPoints:
+    - formContentEnd: <div>Form Content End</div>
+      formContentStart: <div>Form Content Start</div>
+    promptType: login
+    screenName: login

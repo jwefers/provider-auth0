@@ -1,0 +1,19 @@
+apiVersion: selfserviceprofilecustomtext.auth0.com/v1alpha1
+kind: ServiceProfileCustomText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: selfserviceprofilecustomtext/v1alpha1/serviceprofilecustomtext
+  labels:
+    testing.upbound.io/example-name: sso_custom_text
+  name: sso-custom-text
+spec:
+  forProvider:
+    body: |-
+      ${jsonencode(
+          {
+            "introduction" : "Welcome! With only a few steps you'll be able to setup your new custom text."
+          }
+        )}
+    language: en
+    page: get-started
+    ssoId: some-sso-id

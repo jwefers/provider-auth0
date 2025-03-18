@@ -1,0 +1,48 @@
+apiVersion: userrole.auth0.com/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userrole/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: user_roles
+  name: user-roles
+spec:
+  forProvider:
+    roleId: ${auth0_role.admin.id}
+    userId: ${auth0_user.user.id}
+
+---
+
+apiVersion: role.auth0.com/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userrole/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: admin
+  name: admin
+spec:
+  forProvider:
+    description: Administrator
+    name: admin
+
+---
+
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userrole/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: test@test.com
+    name: Firstname Lastname
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    username: unique_username

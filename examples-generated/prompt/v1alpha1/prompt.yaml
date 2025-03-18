@@ -1,0 +1,13 @@
+apiVersion: prompt.auth0.com/v1alpha1
+kind: Prompt
+metadata:
+  annotations:
+    meta.upbound.io/example-id: prompt/v1alpha1/prompt
+  labels:
+    testing.upbound.io/example-name: my_prompt
+  name: my-prompt
+spec:
+  forProvider:
+    identifierFirst: false
+    universalLoginExperience: new
+    webauthnPlatformFirstFactor: true

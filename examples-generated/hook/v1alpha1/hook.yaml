@@ -1,0 +1,23 @@
+apiVersion: hook.auth0.com/v1alpha1
+kind: Hook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: hook/v1alpha1/hook
+  labels:
+    testing.upbound.io/example-name: my_hook
+  name: my-hook
+spec:
+  forProvider:
+    dependencies:
+      auth0: 2.30.0
+    enabled: true
+    name: My Pre User Registration Hook
+    script: |2
+          function (user, context, callback) {
+            callback(null, { user });
+          }
+    secretsSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    triggerId: pre-user-registration
