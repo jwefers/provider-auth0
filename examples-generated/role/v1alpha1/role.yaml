@@ -1,0 +1,12 @@
+apiVersion: role.auth0.com/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: role/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: my_role
+  name: my-role
+spec:
+  forProvider:
+    description: Role Description...
+    name: My Role - (Managed by Terraform)

@@ -1,0 +1,17 @@
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organization/v1alpha1/organization
+  labels:
+    testing.upbound.io/example-name: my_organization
+  name: my-organization
+spec:
+  forProvider:
+    branding:
+    - colors:
+        page_background: '#e1e1e1'
+        primary: '#f2f2f2'
+      logoUrl: https://example.com/assets/icons/icon.png
+    displayName: Auth0 Inc.
+    name: auth0-inc

@@ -1,0 +1,67 @@
+apiVersion: organizationmembers.auth0.com/v1alpha1
+kind: Members
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmembers/v1alpha1/members
+  labels:
+    testing.upbound.io/example-name: my_members
+  name: my-members
+spec:
+  forProvider:
+    members:
+    - ${auth0_user.user_1.id}
+    - ${auth0_user.user_2.id}
+    organizationId: ${auth0_organization.my_org.id}
+
+---
+
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmembers/v1alpha1/members
+  labels:
+    testing.upbound.io/example-name: my_org
+  name: my-org
+spec:
+  forProvider:
+    displayName: Some Organization
+    name: some-org
+
+---
+
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmembers/v1alpha1/members
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: myuser1@auth0.com
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+
+---
+
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmembers/v1alpha1/members
+  labels:
+    testing.upbound.io/example-name: user_2
+  name: user-2
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: myuser2@auth0.com
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

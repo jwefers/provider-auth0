@@ -1,0 +1,18 @@
+apiVersion: selfserviceprofile.auth0.com/v1alpha1
+kind: ServiceProfile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: selfserviceprofile/v1alpha1/serviceprofile
+  labels:
+    testing.upbound.io/example-name: my_self_service_profile
+  name: my-self-service-profile
+spec:
+  forProvider:
+    branding:
+    - colors:
+      - primary: '#0059d6'
+      logoUrl: https://mycompany.org/v2/logo.png
+    userAttributes:
+    - description: sample-description
+      isOptional: true
+      name: sample-name

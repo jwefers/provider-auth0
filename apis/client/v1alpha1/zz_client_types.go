@@ -866,8 +866,8 @@ type ClientInitParameters struct {
 	// Initiate login URI. Must be HTTPS or an empty string.
 	InitiateLoginURI *string `json:"initiateLoginUri,omitempty" tf:"initiate_login_uri,omitempty"`
 
-	// party client.
-	// Indicates whether this client is a first-party client.
+	// party client.Defaults to true from the API
+	// Indicates whether this client is a first-party client.Defaults to true from the API
 	IsFirstParty *bool `json:"isFirstParty,omitempty" tf:"is_first_party,omitempty"`
 
 	// (Boolean) Indicates whether the token endpoint IP header is trusted. Requires the authentication method to be set to client_secret_post or client_secret_basic. Setting this property when creating the resource, will default the authentication method to client_secret_post. To change the authentication method to client_secret_basic use the auth0_client_credentials resource.
@@ -1031,8 +1031,8 @@ type ClientObservation struct {
 	// Initiate login URI. Must be HTTPS or an empty string.
 	InitiateLoginURI *string `json:"initiateLoginUri,omitempty" tf:"initiate_login_uri,omitempty"`
 
-	// party client.
-	// Indicates whether this client is a first-party client.
+	// party client.Defaults to true from the API
+	// Indicates whether this client is a first-party client.Defaults to true from the API
 	IsFirstParty *bool `json:"isFirstParty,omitempty" tf:"is_first_party,omitempty"`
 
 	// (Boolean) Indicates whether the token endpoint IP header is trusted. Requires the authentication method to be set to client_secret_post or client_secret_basic. Setting this property when creating the resource, will default the authentication method to client_secret_post. To change the authentication method to client_secret_basic use the auth0_client_credentials resource.
@@ -1208,8 +1208,8 @@ type ClientParameters struct {
 	// +kubebuilder:validation:Optional
 	InitiateLoginURI *string `json:"initiateLoginUri,omitempty" tf:"initiate_login_uri,omitempty"`
 
-	// party client.
-	// Indicates whether this client is a first-party client.
+	// party client.Defaults to true from the API
+	// Indicates whether this client is a first-party client.Defaults to true from the API
 	// +kubebuilder:validation:Optional
 	IsFirstParty *bool `json:"isFirstParty,omitempty" tf:"is_first_party,omitempty"`
 

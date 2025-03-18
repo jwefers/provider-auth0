@@ -1,0 +1,90 @@
+apiVersion: organizationmemberrole.auth0.com/v1alpha1
+kind: MemberRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmemberrole/v1alpha1/memberrole
+  labels:
+    testing.upbound.io/example-name: role1
+  name: role1
+spec:
+  forProvider:
+    organizationId: ${auth0_organization.my_org.id}
+    roleId: ${auth0_role.reader.id}
+    userId: ${auth0_user.user.id}
+
+---
+
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmemberrole/v1alpha1/memberrole
+  labels:
+    testing.upbound.io/example-name: my_org
+  name: my-org
+spec:
+  forProvider:
+    displayName: Some Org
+    name: some-org
+
+---
+
+apiVersion: organizationmember.auth0.com/v1alpha1
+kind: Member
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmemberrole/v1alpha1/memberrole
+  labels:
+    testing.upbound.io/example-name: my_org_member
+  name: my-org-member
+spec:
+  forProvider:
+    organizationId: ${auth0_organization.my_org.id}
+    userId: ${auth0_user.user.id}
+
+---
+
+apiVersion: role.auth0.com/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmemberrole/v1alpha1/memberrole
+  labels:
+    testing.upbound.io/example-name: reader
+  name: reader
+spec:
+  forProvider:
+    name: Reader
+
+---
+
+apiVersion: role.auth0.com/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmemberrole/v1alpha1/memberrole
+  labels:
+    testing.upbound.io/example-name: writer
+  name: writer
+spec:
+  forProvider:
+    name: Writer
+
+---
+
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmemberrole/v1alpha1/memberrole
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: test-user@auth0.com
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

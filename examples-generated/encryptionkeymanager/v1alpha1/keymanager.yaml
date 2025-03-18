@@ -1,0 +1,11 @@
+apiVersion: encryptionkeymanager.auth0.com/v1alpha1
+kind: KeyManager
+metadata:
+  annotations:
+    meta.upbound.io/example-id: encryptionkeymanager/v1alpha1/keymanager
+  labels:
+    testing.upbound.io/example-name: my_key_manager_initial
+  name: my-key-manager-initial
+spec:
+  forProvider:
+    keyRotationId: da9f2f3b-1c7e-4245-8982-9a25da8407c4

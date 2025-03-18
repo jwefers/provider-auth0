@@ -1,0 +1,47 @@
+apiVersion: organizationmember.auth0.com/v1alpha1
+kind: Member
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmember/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: my_org_member
+  name: my-org-member
+spec:
+  forProvider:
+    organizationId: ${auth0_organization.my_org.id}
+    userId: ${auth0_user.user.id}
+
+---
+
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmember/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: my_org
+  name: my-org
+spec:
+  forProvider:
+    displayName: Admin
+    name: org-admin
+
+---
+
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationmember/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: test-user@auth0.com
+    emailVerified: true
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

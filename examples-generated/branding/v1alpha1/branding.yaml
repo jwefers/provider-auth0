@@ -1,0 +1,16 @@
+apiVersion: branding.auth0.com/v1alpha1
+kind: Branding
+metadata:
+  annotations:
+    meta.upbound.io/example-id: branding/v1alpha1/branding
+  labels:
+    testing.upbound.io/example-name: my_brand
+  name: my-brand
+spec:
+  forProvider:
+    colors:
+    - pageBackground: '#000000'
+      primary: '#0059d6'
+    logoUrl: https://mycompany.org/logo.png
+    universalLogin:
+    - body: ${file("universal_login_body.html")}

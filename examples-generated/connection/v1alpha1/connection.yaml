@@ -1,0 +1,68 @@
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connection/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: my_connection
+  name: my-connection
+spec:
+  forProvider:
+    isDomainConnection: true
+    metadata:
+      key1: foo
+      key2: bar
+    name: Example-Connection
+    options:
+    - authenticationMethods:
+      - passkey:
+        - enabled: true
+        password:
+        - enabled: true
+      bruteForceProtection: true
+      configurationSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      customScripts:
+        get_user: |2
+                  function getByEmail(email, callback) {
+                    return callback(new Error("Whoops!"));
+                  }
+      disableSignup: false
+      enabledDatabaseCustomization: true
+      importMode: false
+      mfa:
+      - active: true
+        returnEnrollSettings: true
+      passkeyOptions:
+      - challengeUi: both
+        localEnrollmentEnabled: true
+        progressiveEnrollmentEnabled: true
+      passwordComplexityOptions:
+      - minLength: 12
+      passwordDictionary:
+      - dictionary:
+        - password
+        - admin
+        - "1234"
+        enable: true
+      passwordHistory:
+      - enable: true
+        size: 3
+      passwordNoPersonalInfo:
+      - enable: true
+      passwordPolicy: excellent
+      requiresUsername: true
+      strategyVersion: 2
+      upstreamParams: |-
+        ${jsonencode({
+              "screen_name" : {
+                "alias" : "login_hint"
+              }
+            })}
+      validation:
+      - username:
+        - max: 40
+          min: 10
+    strategy: auth0

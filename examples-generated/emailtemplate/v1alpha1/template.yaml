@@ -1,0 +1,44 @@
+apiVersion: emailtemplate.auth0.com/v1alpha1
+kind: Template
+metadata:
+  annotations:
+    meta.upbound.io/example-id: emailtemplate/v1alpha1/template
+  labels:
+    testing.upbound.io/example-name: my_email_template
+  name: my-email-template
+spec:
+  forProvider:
+    body: <html><body><h1>Welcome!</h1></body></html>
+    enabled: true
+    from: welcome@example.com
+    resultUrl: https://example.com/welcome
+    subject: Welcome
+    syntax: liquid
+    template: welcome_email
+    urlLifetimeInSeconds: 3600
+
+---
+
+apiVersion: emailprovider.auth0.com/v1alpha1
+kind: Provider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: emailtemplate/v1alpha1/template
+  labels:
+    testing.upbound.io/example-name: my_email_provider
+  name: my-email-provider
+spec:
+  forProvider:
+    credentials:
+    - accessKeyIdSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      region: us-east-1
+      secretAccessKeySecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+    defaultFromAddress: accounts@example.com
+    enabled: true
+    name: ses

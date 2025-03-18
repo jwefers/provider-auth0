@@ -1,0 +1,81 @@
+apiVersion: organizationclientgrant.auth0.com/v1alpha1
+kind: ClientGrant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationclientgrant/v1alpha1/clientgrant
+  labels:
+    testing.upbound.io/example-name: associate_org_client_grant
+  name: associate-org-client-grant
+spec:
+  forProvider:
+    grantId: ${auth0_client_grant.my_client_grant.id}
+    organizationId: ${auth0_organization.my_organization.id}
+
+---
+
+apiVersion: client.auth0.com/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationclientgrant/v1alpha1/clientgrant
+  labels:
+    testing.upbound.io/example-name: my_test_client
+  name: my-test-client
+spec:
+  forProvider:
+    defaultOrganization:
+    - flows:
+      - client_credentials
+      organizationId: ${auth0_organization.my_organization.id}
+    name: test_client
+    organizationUsage: allow
+
+---
+
+apiVersion: clientgrant.auth0.com/v1alpha1
+kind: Grant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationclientgrant/v1alpha1/clientgrant
+  labels:
+    testing.upbound.io/example-name: my_client_grant
+  name: my-client-grant
+spec:
+  forProvider:
+    allowAnyOrganization: true
+    audience: https://api.travel00123.com/
+    clientId: ${auth0_client.my_test_client.id}
+    organizationUsage: allow
+    scopes:
+    - create:organization_client_grants
+    - create:resource
+
+---
+
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationclientgrant/v1alpha1/clientgrant
+  labels:
+    testing.upbound.io/example-name: my_organization
+  name: my-organization
+spec:
+  forProvider:
+    displayName: Test Org Acceptance Testing
+    name: test-org-acceptance-testing
+
+---
+
+apiVersion: resourceserver.auth0.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationclientgrant/v1alpha1/clientgrant
+  labels:
+    testing.upbound.io/example-name: new_resource_server
+  name: new-resource-server
+spec:
+  forProvider:
+    identifier: https://api.travel00123.com/
+    name: Example API

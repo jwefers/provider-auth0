@@ -1,0 +1,43 @@
+apiVersion: attackprotection.auth0.com/v1alpha1
+kind: Protection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: attackprotection/v1alpha1/protection
+  labels:
+    testing.upbound.io/example-name: my_protection
+  name: my-protection
+spec:
+  forProvider:
+    breachedPasswordDetection:
+    - adminNotificationFrequency:
+      - daily
+      enabled: true
+      method: standard
+      preUserRegistration:
+      - shields:
+        - block
+      shields:
+      - admin_notification
+      - block
+    bruteForceProtection:
+    - allowlist:
+      - 127.0.0.1
+      enabled: true
+      maxAttempts: 5
+      mode: count_per_identifier_and_ip
+      shields:
+      - block
+      - user_notification
+    suspiciousIpThrottling:
+    - allowlist:
+      - 192.168.1.1
+      enabled: true
+      preLogin:
+      - maxAttempts: 100
+        rate: 864000
+      preUserRegistration:
+      - maxAttempts: 50
+        rate: 1200
+      shields:
+      - admin_notification
+      - block

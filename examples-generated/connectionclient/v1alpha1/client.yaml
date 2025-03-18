@@ -1,0 +1,41 @@
+apiVersion: connectionclient.auth0.com/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclient/v1alpha1/client
+  labels:
+    testing.upbound.io/example-name: my_conn_client_assoc
+  name: my-conn-client-assoc
+spec:
+  forProvider:
+    clientId: ${auth0_client.my_client.id}
+    connectionId: ${auth0_connection.my_conn.id}
+
+---
+
+apiVersion: client.auth0.com/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclient/v1alpha1/client
+  labels:
+    testing.upbound.io/example-name: my_client
+  name: my-client
+spec:
+  forProvider:
+    name: My-Auth0-Client
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclient/v1alpha1/client
+  labels:
+    testing.upbound.io/example-name: my_conn
+  name: my-conn
+spec:
+  forProvider:
+    name: My-Auth0-Connection
+    strategy: auth0

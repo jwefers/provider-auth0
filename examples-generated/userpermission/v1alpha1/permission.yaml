@@ -1,0 +1,58 @@
+apiVersion: userpermission.auth0.com/v1alpha1
+kind: Permission
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userpermission/v1alpha1/permission
+  labels:
+    testing.upbound.io/example-name: user_permission_read
+  name: user-permission-read
+spec:
+  forProvider:
+    permission: ${tolist(auth0_resource_server.resource_server.scopes)[0]}
+    resourceServerIdentifier: https://api.example.com
+    userId: ${auth0_user.user.id}
+
+---
+
+apiVersion: resourceserver.auth0.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userpermission/v1alpha1/permission
+  labels:
+    testing.upbound.io/example-name: resource_server
+  name: resource-server
+spec:
+  forProvider:
+    identifier: https://api.example.com
+    name: Example Resource Server (Managed by Terraform)
+    scopes:
+    - description: Create foos
+      value: create:foo
+    - description: Create bars
+      value: create:bar
+
+---
+
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userpermission/v1alpha1/permission
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: test@test.com
+    emailVerified: true
+    name: Firstname Lastname
+    nickname: some.nickname
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    picture: https://www.example.com/a-valid-picture-url.jpg
+    userId: "12345"
+    username: unique_username

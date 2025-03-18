@@ -1,0 +1,54 @@
+apiVersion: emailprovider.auth0.com/v1alpha1
+kind: Provider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: emailprovider/v1alpha1/provider
+  labels:
+    testing.upbound.io/example-name: amazon_ses_email_provider
+  name: amazon-ses-email-provider
+spec:
+  forProvider:
+    credentials:
+    - accessKeyIdSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      region: us-east-1
+      secretAccessKeySecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+    defaultFromAddress: accounts@example.com
+    enabled: true
+    name: ses
+
+---
+
+apiVersion: action.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: emailprovider/v1alpha1/provider
+  labels:
+    testing.upbound.io/example-name: custom_email_provider_action
+  name: custom-email-provider-action
+spec:
+  forProvider:
+    code: |
+      /**
+       * Handler to be executed while sending an email notification.
+       *
+       * @param {Event} event - Details about the user and the context in which they are logging in.
+       * @param {CustomEmailProviderAPI} api - Methods and utilities to help change the behavior of sending a email notification.
+       */
+       exports.onExecuteCustomEmailProvider = async (event, api) => {
+        // Code goes here
+        console.log(event);
+        return;
+       };
+    deploy: true
+    name: custom-email-provider-action
+    runtime: node18
+    supportedTriggers:
+    - id: custom-email-provider
+      version: v1

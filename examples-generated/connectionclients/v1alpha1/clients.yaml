@@ -1,0 +1,57 @@
+apiVersion: connectionclients.auth0.com/v1alpha1
+kind: Clients
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclients/v1alpha1/clients
+  labels:
+    testing.upbound.io/example-name: my_conn_clients_assoc
+  name: my-conn-clients-assoc
+spec:
+  forProvider:
+    connectionId: ${auth0_connection.my_conn.id}
+    enabledClients:
+    - ${auth0_client.my_first_client.id}
+    - ${auth0_client.my_second_client.id}
+
+---
+
+apiVersion: client.auth0.com/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclients/v1alpha1/clients
+  labels:
+    testing.upbound.io/example-name: my_first_client
+  name: my-first-client
+spec:
+  forProvider:
+    name: My-First-Auth0-Client
+
+---
+
+apiVersion: client.auth0.com/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclients/v1alpha1/clients
+  labels:
+    testing.upbound.io/example-name: my_second_client
+  name: my-second-client
+spec:
+  forProvider:
+    name: My-Second-Auth0-Client
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connectionclients/v1alpha1/clients
+  labels:
+    testing.upbound.io/example-name: my_conn
+  name: my-conn
+spec:
+  forProvider:
+    name: My-Auth0-Connection
+    strategy: auth0

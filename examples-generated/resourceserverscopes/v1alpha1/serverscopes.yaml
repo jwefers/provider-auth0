@@ -1,0 +1,31 @@
+apiVersion: resourceserverscopes.auth0.com/v1alpha1
+kind: ServerScopes
+metadata:
+  annotations:
+    meta.upbound.io/example-id: resourceserverscopes/v1alpha1/serverscopes
+  labels:
+    testing.upbound.io/example-name: my_api_scopes
+  name: my-api-scopes
+spec:
+  forProvider:
+    resourceServerIdentifier: https://api.example.com
+    scopes:
+    - description: Ability to create appointments
+      name: create:appointments
+    - description: Ability to read appointments
+      name: read:appointments
+
+---
+
+apiVersion: resourceserver.auth0.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: resourceserverscopes/v1alpha1/serverscopes
+  labels:
+    testing.upbound.io/example-name: my_api
+  name: my-api
+spec:
+  forProvider:
+    identifier: https://api.example.com
+    name: Example Resource Server (Managed by Terraform)

@@ -1,0 +1,17 @@
+apiVersion: promptpartials.auth0.com/v1alpha1
+kind: Partials
+metadata:
+  annotations:
+    meta.upbound.io/example-id: promptpartials/v1alpha1/partials
+  labels:
+    testing.upbound.io/example-name: my_login_prompt_partials
+  name: my-login-prompt-partials
+spec:
+  forProvider:
+    formContentEnd: <div>Updated Form Content End</div>
+    formContentStart: <div>Updated Form Content Start</div>
+    formFooterEnd: <div>Updated Footer End</div>
+    formFooterStart: <div>Updated Footer Start</div>
+    prompt: login
+    secondaryActionsEnd: <div>Updated Secondary Actions End</div>
+    secondaryActionsStart: <div>Updated Secondary Actions Start</div>

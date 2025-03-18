@@ -1,0 +1,20 @@
+apiVersion: promptscreenpartials.auth0.com/v1alpha1
+kind: ScreenPartials
+metadata:
+  annotations:
+    meta.upbound.io/example-id: promptscreenpartials/v1alpha1/screenpartials
+  labels:
+    testing.upbound.io/example-name: prompt_screen_partials
+  name: prompt-screen-partials
+spec:
+  forProvider:
+    promptType: login-passwordless
+    screenPartials:
+    - insertionPoints:
+      - formContentEnd: <div>Form Content End</div>
+        formContentStart: <div>Form Content Start</div>
+      screenName: login-passwordless-email-code
+    - insertionPoints:
+      - formContentEnd: <div>Form Content End</div>
+        formContentStart: <div>Form Content Start</div>
+      screenName: login-passwordless-sms-otp

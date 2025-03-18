@@ -1,0 +1,53 @@
+apiVersion: phoneprovider.auth0.com/v1alpha1
+kind: Provider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: phoneprovider/v1alpha1/provider
+  labels:
+    testing.upbound.io/example-name: twilio_phone_provider
+  name: twilio-phone-provider
+spec:
+  forProvider:
+    configuration:
+    - defaultFrom: "+1234567890"
+      deliveryMethods:
+      - text
+      - voice
+      mssid: MSXXXXXXXXXXXXXXXX
+      sid: ACXXXXXXXXXXXXXXXX
+    credentials:
+    - authTokenSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+    disabled: false
+    name: twilio
+
+---
+
+apiVersion: action.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: phoneprovider/v1alpha1/provider
+  labels:
+    testing.upbound.io/example-name: send_custom_phone
+  name: send-custom-phone
+spec:
+  forProvider:
+    code: |
+      /**
+       * Handler to be executed while sending a phone notification
+       * @param {Event} event - Details about the user and the context in which they are logging in.
+       * @param {CustomPhoneProviderAPI} api - Methods and utilities to help change the behavior of sending a phone notification.
+       */
+      exports.onExecuteCustomPhoneProvider = async (event, api) => {
+          // Code goes here
+          return;
+      };
+    deploy: true
+    name: Custom Phone Provider
+    runtime: node18
+    supportedTriggers:
+    - id: custom-phone-provider
+      version: v1

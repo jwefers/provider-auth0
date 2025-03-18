@@ -1,0 +1,65 @@
+apiVersion: organizationconnections.auth0.com/v1alpha1
+kind: Connections
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnections/v1alpha1/connections
+  labels:
+    testing.upbound.io/example-name: one-to-many
+  name: one-to-many
+spec:
+  forProvider:
+    enabledConnections:
+    - assignMembershipOnLogin: true
+      connectionId: ${auth0_connection.my_connection-1.id}
+      isSignupEnabled: false
+      showAsButton: true
+    - assignMembershipOnLogin: true
+      connectionId: ${auth0_connection.my_connection-2.id}
+      isSignupEnabled: false
+      showAsButton: true
+    organizationId: ${auth0_organization.my_organization.id}
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnections/v1alpha1/connections
+  labels:
+    testing.upbound.io/example-name: my_connection-1
+  name: my-connection-1
+spec:
+  forProvider:
+    name: My Connection 1
+    strategy: auth0
+
+---
+
+apiVersion: connection.auth0.com/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnections/v1alpha1/connections
+  labels:
+    testing.upbound.io/example-name: my_connection-2
+  name: my-connection-2
+spec:
+  forProvider:
+    name: My Connection 2
+    strategy: auth0
+
+---
+
+apiVersion: organization.auth0.com/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizationconnections/v1alpha1/connections
+  labels:
+    testing.upbound.io/example-name: my_organization
+  name: my-organization
+spec:
+  forProvider:
+    displayName: My Organization
+    name: my-organization

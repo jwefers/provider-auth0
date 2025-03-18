@@ -1,0 +1,49 @@
+apiVersion: clientgrant.auth0.com/v1alpha1
+kind: Grant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: clientgrant/v1alpha1/grant
+  labels:
+    testing.upbound.io/example-name: my_client_grant
+  name: my-client-grant
+spec:
+  forProvider:
+    audience: https://api.example.com
+    clientId: ${auth0_client.my_client.id}
+    scopes:
+    - create:foo
+    - create:bar
+
+---
+
+apiVersion: client.auth0.com/v1alpha1
+kind: Client
+metadata:
+  annotations:
+    meta.upbound.io/example-id: clientgrant/v1alpha1/grant
+  labels:
+    testing.upbound.io/example-name: my_client
+  name: my-client
+spec:
+  forProvider:
+    name: Example Application - Client Grant (Managed by Terraform)
+
+---
+
+apiVersion: resourceserver.auth0.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: clientgrant/v1alpha1/grant
+  labels:
+    testing.upbound.io/example-name: my_resource_server
+  name: my-resource-server
+spec:
+  forProvider:
+    identifier: https://api.example.com/client-grant
+    name: Example Resource Server - Client Grant (Managed by Terraform)
+    scopes:
+    - description: Create foos
+      value: create:foo
+    - description: Create bars
+      value: create:bar

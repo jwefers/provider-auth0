@@ -1,0 +1,22 @@
+apiVersion: user.auth0.com/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    connectionName: Username-Password-Authentication
+    email: test@test.com
+    emailVerified: true
+    name: Firstname Lastname
+    nickname: some.nickname
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    picture: https://www.example.com/a-valid-picture-url.jpg
+    userId: "12345"
+    username: unique_username

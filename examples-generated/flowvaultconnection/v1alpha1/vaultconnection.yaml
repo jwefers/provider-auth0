@@ -1,0 +1,16 @@
+apiVersion: flowvaultconnection.auth0.com/v1alpha1
+kind: VaultConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: flowvaultconnection/v1alpha1/vaultconnection
+  labels:
+    testing.upbound.io/example-name: my_connection
+  name: my-connection
+spec:
+  forProvider:
+    appId: AUTH0
+    name: Auth0 M2M Connection
+    setupSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

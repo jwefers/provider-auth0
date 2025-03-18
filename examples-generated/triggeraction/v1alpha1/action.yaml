@@ -1,0 +1,34 @@
+apiVersion: triggeraction.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: triggeraction/v1alpha1/action
+  labels:
+    testing.upbound.io/example-name: post_login_alert_action
+  name: post-login-alert-action
+spec:
+  forProvider:
+    actionId: ${auth0_action.login_alert.id}
+    trigger: post-login
+
+---
+
+apiVersion: action.auth0.com/v1alpha1
+kind: Action
+metadata:
+  annotations:
+    meta.upbound.io/example-id: triggeraction/v1alpha1/action
+  labels:
+    testing.upbound.io/example-name: login_alert
+  name: login-alert
+spec:
+  forProvider:
+    code: |
+      exports.onContinuePostLogin = async (event, api) => {
+        console.log("foo");
+      };"
+    deploy: true
+    name: Alert after login
+    supportedTriggers:
+    - id: post-login
+      version: v3

@@ -1,0 +1,28 @@
+apiVersion: customdomainverification.auth0.com/v1alpha1
+kind: DomainVerification
+metadata:
+  annotations:
+    meta.upbound.io/example-id: customdomainverification/v1alpha1/domainverification
+  labels:
+    testing.upbound.io/example-name: my_custom_domain_verification
+  name: my-custom-domain-verification
+spec:
+  forProvider:
+    customDomainId: ${auth0_custom_domain.my_custom_domain.id}
+    timeouts:
+    - create: 15m
+
+---
+
+apiVersion: customdomain.auth0.com/v1alpha1
+kind: Domain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: customdomainverification/v1alpha1/domainverification
+  labels:
+    testing.upbound.io/example-name: my_custom_domain
+  name: my-custom-domain
+spec:
+  forProvider:
+    domain: login.example.com
+    type: auth0_managed_certs
