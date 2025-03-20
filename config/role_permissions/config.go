@@ -5,7 +5,7 @@ import (
 	"github.com/crossplane/upjet/pkg/registry"
 )
 
-// Configures the resource auth0_role_permissions in the provider configuration.
+// Configure the auth0_role_permissions resource in the provider configuration.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("auth0_role_permissions", func(r *config.Resource) {
 		r.ShortGroup = "rolepermissions"
