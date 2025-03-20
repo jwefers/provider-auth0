@@ -1,4 +1,4 @@
-apiVersion: customdomainverification.auth0.com/v1alpha1
+apiVersion: customdomainverification.auth0.jwefers.upbound.io/v1alpha1
 kind: DomainVerification
 metadata:
   annotations:
@@ -14,7 +14,7 @@ spec:
 
 ---
 
-apiVersion: customdomain.auth0.com/v1alpha1
+apiVersion: customdomain.auth0.jwefers.upbound.io/v1alpha1
 kind: Domain
 metadata:
   annotations:

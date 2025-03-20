@@ -1,4 +1,4 @@
-apiVersion: emailtemplate.auth0.com/v1alpha1
+apiVersion: emailtemplate.auth0.jwefers.upbound.io/v1alpha1
 kind: Template
 metadata:
   annotations:
@@ -19,7 +19,7 @@ spec:
 
 ---
 
-apiVersion: emailprovider.auth0.com/v1alpha1
+apiVersion: emailprovider.auth0.jwefers.upbound.io/v1alpha1
 kind: Provider
 metadata:
   annotations:

@@ -1,4 +1,4 @@
-apiVersion: userrole.auth0.com/v1alpha1
+apiVersion: userrole.auth0.jwefers.upbound.io/v1alpha1
 kind: Role
 metadata:
   annotations:
@@ -13,7 +13,7 @@ spec:
 
 ---
 
-apiVersion: role.auth0.com/v1alpha1
+apiVersion: role.auth0.jwefers.upbound.io/v1alpha1
 kind: Role
 metadata:
   annotations:
@@ -28,7 +28,7 @@ spec:
 
 ---
 
-apiVersion: user.auth0.com/v1alpha1
+apiVersion: user.auth0.jwefers.upbound.io/v1alpha1
 kind: User
 metadata:
   annotations:

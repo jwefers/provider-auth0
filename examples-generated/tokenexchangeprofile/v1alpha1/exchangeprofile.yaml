@@ -1,4 +1,4 @@
-apiVersion: tokenexchangeprofile.auth0.com/v1alpha1
+apiVersion: tokenexchangeprofile.auth0.jwefers.upbound.io/v1alpha1
 kind: ExchangeProfile
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: action.auth0.com/v1alpha1
+apiVersion: action.auth0.jwefers.upbound.io/v1alpha1
 kind: Action
 metadata:
   annotations:

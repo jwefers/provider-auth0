@@ -1,4 +1,4 @@
-apiVersion: userpermissions.auth0.com/v1alpha1
+apiVersion: userpermissions.auth0.jwefers.upbound.io/v1alpha1
 kind: Permissions
 metadata:
   annotations:
@@ -17,7 +17,7 @@ spec:
 
 ---
 
-apiVersion: resourceserver.auth0.com/v1alpha1
+apiVersion: resourceserver.auth0.jwefers.upbound.io/v1alpha1
 kind: Server
 metadata:
   annotations:
@@ -37,7 +37,7 @@ spec:
 
 ---
 
-apiVersion: user.auth0.com/v1alpha1
+apiVersion: user.auth0.jwefers.upbound.io/v1alpha1
 kind: User
 metadata:
   annotations:

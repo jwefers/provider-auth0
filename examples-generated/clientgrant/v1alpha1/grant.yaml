@@ -1,4 +1,4 @@
-apiVersion: clientgrant.auth0.com/v1alpha1
+apiVersion: clientgrant.auth0.jwefers.upbound.io/v1alpha1
 kind: Grant
 metadata:
   annotations:
@@ -16,7 +16,7 @@ spec:
 
 ---
 
-apiVersion: client.auth0.com/v1alpha1
+apiVersion: client.auth0.jwefers.upbound.io/v1alpha1
 kind: Client
 metadata:
   annotations:
@@ -30,7 +30,7 @@ spec:
 
 ---
 
-apiVersion: resourceserver.auth0.com/v1alpha1
+apiVersion: resourceserver.auth0.jwefers.upbound.io/v1alpha1
 kind: Server
 metadata:
   annotations:

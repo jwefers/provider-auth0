@@ -1,4 +1,4 @@
-apiVersion: connectionclients.auth0.com/v1alpha1
+apiVersion: connectionclients.auth0.jwefers.upbound.io/v1alpha1
 kind: Clients
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: client.auth0.com/v1alpha1
+apiVersion: client.auth0.jwefers.upbound.io/v1alpha1
 kind: Client
 metadata:
   annotations:
@@ -29,7 +29,7 @@ spec:
 
 ---
 
-apiVersion: client.auth0.com/v1alpha1
+apiVersion: client.auth0.jwefers.upbound.io/v1alpha1
 kind: Client
 metadata:
   annotations:
@@ -43,7 +43,7 @@ spec:
 
 ---
 
-apiVersion: connection.auth0.com/v1alpha1
+apiVersion: connection.auth0.jwefers.upbound.io/v1alpha1
 kind: Connection
 metadata:
   annotations:

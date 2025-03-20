@@ -1,4 +1,4 @@
-apiVersion: pages.auth0.com/v1alpha1
+apiVersion: pages.auth0.jwefers.upbound.io/v1alpha1
 kind: Pages
 metadata:
   annotations:

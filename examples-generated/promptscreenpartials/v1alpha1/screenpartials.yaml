@@ -1,4 +1,4 @@
-apiVersion: promptscreenpartials.auth0.com/v1alpha1
+apiVersion: promptscreenpartials.auth0.jwefers.upbound.io/v1alpha1
 kind: ScreenPartials
 metadata:
   annotations:

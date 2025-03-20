@@ -1,4 +1,4 @@
-apiVersion: organizationmembers.auth0.com/v1alpha1
+apiVersion: organizationmembers.auth0.jwefers.upbound.io/v1alpha1
 kind: Members
 metadata:
   annotations:
@@ -15,7 +15,7 @@ spec:
 
 ---
 
-apiVersion: organization.auth0.com/v1alpha1
+apiVersion: organization.auth0.jwefers.upbound.io/v1alpha1
 kind: Organization
 metadata:
   annotations:
@@ -30,7 +30,7 @@ spec:
 
 ---
 
-apiVersion: user.auth0.com/v1alpha1
+apiVersion: user.auth0.jwefers.upbound.io/v1alpha1
 kind: User
 metadata:
   annotations:
@@ -49,7 +49,7 @@ spec:
 
 ---
 
-apiVersion: user.auth0.com/v1alpha1
+apiVersion: user.auth0.jwefers.upbound.io/v1alpha1
 kind: User
 metadata:
   annotations:

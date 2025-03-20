@@ -1,4 +1,4 @@
-apiVersion: resourceserver.auth0.com/v1alpha1
+apiVersion: resourceserver.auth0.jwefers.upbound.io/v1alpha1
 kind: Server
 metadata:
   annotations:
