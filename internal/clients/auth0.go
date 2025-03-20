@@ -28,7 +28,7 @@ const (
 
 	// config keys
 	keyDomain       = "domain"
-	keyClientId     = "client_id"
+	keyClientId     = "client_id" //nolint:golint
 	keyClientSecret = "client_secret"
 	// keyDebug        = "debug"
 )
