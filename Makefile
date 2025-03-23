@@ -258,4 +258,4 @@ vendor: modules.download
 vendor.check: modules.check
 
 login:
-	@$(UP) login --username=$(username) --password=$(password)
+	@$(UP) login --username=$(UP_USERNAME) --password=$(UP_PASSWORD)

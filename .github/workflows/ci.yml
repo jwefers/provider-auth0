@@ -323,7 +323,7 @@ jobs:
 
       - name: Login via up CLI
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-        run: make login --username=${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }} --password=${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+        run: UP_USERNAME=${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }} UP_PASSWORD=${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }} make login
 
       - name: Publish Artifacts
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
